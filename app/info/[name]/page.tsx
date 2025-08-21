@@ -24,7 +24,7 @@ interface PageProps {
   };
 }
 
-const InfoPage: React.FC<PageProps> = async ({ params }) => {
+const InfoPage = async ({ params:params }) => {
   const [ageData, genderData, countryData] = await Promise.all([
     getPredAge(params.name),
     getPredGender(params.name),
