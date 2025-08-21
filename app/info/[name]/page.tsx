@@ -1,9 +1,20 @@
-import React from 'react'
+import React from 'react';
 
-const page = () => {
-  return (
-    <div>name</div>
-  )
+interface PageProps {
+    params: {
+        name: string;
+    };
 }
 
-export default page
+const InfoPage: React.FC<PageProps> = ({ params }) => {
+
+
+    return (
+        <div>
+            <h1>Welcome, {params.name}!</h1>
+            <p>This is the info page for {params.name}.</p>
+        </div>
+    );
+};
+
+export default InfoPage;
