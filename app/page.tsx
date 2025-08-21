@@ -1,5 +1,6 @@
 import React from "react";
 
+
 const getPredAge = async (name: string) => {
   const res = await fetch(`https://api.agify.io?name=${name}`, {
     cache: "no-store",
@@ -24,23 +25,27 @@ const getPredCountry = async (name: string) => {
   return res.json();
 };
 
-interface PageProps {
-  params: { name: string };
-}
 
-const InfoPage = async ({ params }: PageProps) => {
+type PageProps = {
+  params: {
+    name: string;
+  };
+};
+
+
+export default async function InfoPage({ params }: PageProps) {
   const [ageData, genderData, countryData] = await Promise.all([
     getPredAge(params.name),
     getPredGender(params.name),
     getPredCountry(params.name),
   ]);
 
-  const age = ageData.age ?? "Unknown";
-  const gender = genderData.gender || "Unknown";
-  const country = countryData.country?.[0]?.country_id || "Unknown";
+  const age = ageData?.age ?? "Unknown";
+  const gender = genderData?.gender ?? "Unknown";
+  const country = countryData?.country?.[0]?.country_id ?? "Unknown";
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-6">
+    <div className="flex min-h-screen items-center justify-center p-6 bg-gray-100">
       <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md text-center">
         <h1 className="text-3xl font-bold text-gray-800 mb-6">
           Predicted Data for{" "}
@@ -63,6 +68,4 @@ const InfoPage = async ({ params }: PageProps) => {
       </div>
     </div>
   );
-};
-
-export default InfoPage;
+}
